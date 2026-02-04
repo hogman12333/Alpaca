@@ -134,7 +134,9 @@ class Terminal(Base):
 
         self.current_commands = [
             'clear',
-            'echo -e "🦙 {}" | fold -s -w "$(tput cols)"'.format(arguments.get('explanation'), _('No explanation was provided')),
+            'echo "{}" | fold -s -w "$(tput cols)"'.format(
+            arguments.get('explanation', '').encode("utf-8", "ignore").decode("ascii", "ignore")
+            ),
             'read -e -i "{}" cmd'.format(arguments.get('command').replace('"', '\\"')),
             'clear',
             'eval "$cmd"'
